@@ -15,5 +15,7 @@ Imports:
     demcheck,
     methods
 Suggests: 
-    testthat
+    testthat 
+Remotes:
+    johnrbryant/demcheck
 RoxygenNote: 6.1.1
