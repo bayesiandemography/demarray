@@ -27,6 +27,8 @@ setMethod("make_dimscale_labels",
           function(object) {
               dimvalues <- object@dimvalues
               time_unit <- object@time_unit
+              is_open_left <- object@is_open_left
+              is_open_right <- object@is_open_right
               make_dimscale_labels_intervals_date(dimvalues = dimvalues,
                                                   time_unit = time_unit,
                                                   is_open_left = is_open_left,
@@ -64,3 +66,6 @@ setMethod("n_level_dimscale",
               is_open_right <- object@is_open_right
               length(dimvalues) + is_open_left + is_open_right - 1L
           })
+
+
+              

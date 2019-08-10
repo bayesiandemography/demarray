@@ -2,11 +2,9 @@
 
 setGeneric("make_dimscale_labels",
            function(object) {
-               dimscales <- object@dimscales
-               as.character(dimscales)
+               dimvalues <- object@dimvalues
+               as.character(dimvalues)
            })
-
-
 
 setGeneric("n_level_dimscale",
            function(object)

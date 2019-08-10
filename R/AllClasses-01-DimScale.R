@@ -72,7 +72,7 @@ validity_IntervalsOpenMixin <- function(object) {
     is_open_right <- object@is_open_right
     dimvalues <- object@dimvalues
     for (name in c("is_open_left", "is_open_right")) {
-        x <- slot(object, name)
+        x <- methods::slot(object, name)
         val <- demcheck::chk_is_logical_flag(x = x,
                                              name = name)
         if (is.character(val))
@@ -98,7 +98,7 @@ setClass("IntervalsOpenMixin",
 validity_IsAgeMixin <- function(object) {
     is_age <- object@is_age
     val <- demcheck::chk_is_logical_flag(x = is_age,
-                                         name = name)
+                                         name = "is_age")
     if (is.character(val))
         return(val)
     TRUE
@@ -118,12 +118,14 @@ setClass("DimScale",
 setClass("Points",
          contains = "VIRTUAL")
 
+## HAS_TESTS
 ## Used with dimtypes "age" or "time"
 setClass("PointsInteger",
          slots = c(dimvalues = "integer"),
          contains = c("Points",
                       "IntegerDimvaluesMixin"))
 
+## HAS_TESTS
 ## Used with dimtype "time"
 setClass("PointsDate",
          slots = c(dimvalues = "Date"),
@@ -131,6 +133,7 @@ setClass("PointsDate",
                       "DateDimvaluesMixin",
                       "TimeUnitMixin"))
 
+## HAS_TESTS
 ## Used with dimtype "age"
 setClass("PointsDuration",
          slots = c(dimvalues = "integer"),
@@ -142,6 +145,7 @@ setClass("Intervals",
          contains = c("VIRTUAL",
                       "IntervalsOpenMixin"))
 
+## HAS_TESTS
 ## Used with dimtypes "age", "time", or "cohort"
 setClass("IntervalsInteger",
          slots = c(dimvalues = "integer"),
@@ -149,6 +153,7 @@ setClass("IntervalsInteger",
                       "IntegerDimvaluesMixin",
                       "IsAgeMixin"))
 
+## HAS_TESTS
 ## Used with dimtypes "time" or "cohort"
 setClass("IntervalsDate",
          slots = c(dimvalues = "Date"),
@@ -156,6 +161,7 @@ setClass("IntervalsDate",
                       "DateDimvaluesMixin",
                       "TimeUnitMixin"))
 
+## HAS_TESTS
 ## Used with dimtype "age"
 setClass("IntervalsDuration",
          slots = c(dimvalues = "integer"),
