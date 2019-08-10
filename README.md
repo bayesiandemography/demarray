@@ -8,9 +8,10 @@ output: github_document
 # demarray
 
 <!-- badges: start -->
+[![Travis build status](https://travis-ci.org/johnrbryant/demarray.svg?branch=master)](https://travis-ci.org/johnrbryant/demarray)
 <!-- badges: end -->
 
-demarray (pronounced "dem-array") contains functions for creating demographic arrays, and for doing basic actions on demographic arrays such as printing.
+**demarray** (pronounced "dem-array") contains functions for creating demographic arrays, and for doing basic actions on demographic arrays such as printing.
 
 ## Installation
 
