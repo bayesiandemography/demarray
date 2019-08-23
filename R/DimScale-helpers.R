@@ -3,43 +3,43 @@
 
 ## HAS_TESTS
 make_dimscale_labels_points_duration <- function(dimvalues,
-                                                 time_unit) {
+                                                 unit) {
     n <- length(dimvalues)
     if (n == 0L)
         return(character())
-    if (time_unit == "month") {
+    if (unit == "month") {
         year <- dimvalues %/% 12L
         month <- dimvalues %% 12L
         suffix <- paste0(month, "m")
     }
-    else if (time_unit == "quarter") {
+    else if (unit == "quarter") {
         year <- dimvalues %/% 4L
         quarter <- dimvalues %% 4L
         suffix <- paste0(quarter, "q")
     }
     else
         stop(gettextf("can't handle time unit '%s'",
-                      time_unit))
+                      unit))
     paste0(year, "y", " ", suffix)
 }
 
 ## HAS_TESTS
 make_dimscale_labels_points_date <- function(dimvalues,
-                                             time_unit) {
+                                             unit) {
     n <- length(dimvalues)
     if (n == 0L)
         return(character())
     year <- format(dimvalues, format = "%Y")
-    if (time_unit == "month") {
+    if (unit == "month") {
         suffix <- months(dimvalues,
                          abbreviate = TRUE)
     }
-    else if (time_unit == "quarter") {
+    else if (unit == "quarter") {
         suffix <- quarters(dimvalues)
     }
     else
         stop(gettextf("can't handle time unit '%s'",
-                      time_unit))
+                      unit))
     paste(year, suffix)
 }
 
@@ -76,25 +76,25 @@ make_dimscale_labels_intervals_integer <- function(dimvalues,
 
 ## HAS_TESTS
 make_dimscale_labels_intervals_duration <- function(dimvalues,
-                                                    time_unit,
+                                                    unit,
                                                     is_open_left,
                                                     is_open_right) {
     n <- length(dimvalues)
     if (n == 0L)
         return(character())
-    if (time_unit == "month") {
+    if (unit == "month") {
         year <- dimvalues %/% 12L
         month <- dimvalues %% 12L
         suffix <- paste0(month, "m")
     }
-    else if (time_unit == "quarter") {
+    else if (unit == "quarter") {
         year <- dimvalues %/% 4L
         quarter <- dimvalues %% 4L
         suffix <- paste0(quarter, "q")
     }
     else
         stop(gettextf("can't handle time unit '%s'",
-                      time_unit))
+                      unit))
     year <- paste0(year, "y")
     if (n == 1L)
         ans_mid <- NULL
@@ -114,23 +114,23 @@ make_dimscale_labels_intervals_duration <- function(dimvalues,
 
 ## HAS_TESTS
 make_dimscale_labels_intervals_date <- function(dimvalues,
-                                                time_unit,
+                                                unit,
                                                 is_open_left,
                                                 is_open_right) {
     n <- length(dimvalues)
     if (n == 0L)
         return(character())
     year <- format(dimvalues, format = "%Y")
-    if (time_unit == "month") {
+    if (unit == "month") {
         suffix <- months(dimvalues,
                          abbreviate = TRUE)
     }
-    else if (time_unit == "quarter") {
+    else if (unit == "quarter") {
         suffix <- quarters(dimvalues)
     }
     else
         stop(gettextf("can't handle time unit '%s'",
-                      time_unit))
+                      unit))
     if (n == 1L)
         ans_mid <- NULL
     else

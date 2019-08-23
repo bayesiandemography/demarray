@@ -2,19 +2,19 @@
 
 ## Mixin Classes ---------------------------------------------------------------
 
-validity_TimeUnitMixin <- function(object) {
-    time_unit <- object@time_unit
-    val <- demcheck::chk_member_time_unit(x = time_unit,
-                                          name = "time_unit")
+validity_UnitMixin <- function(object) {
+    unit <- object@unit
+    val <- demcheck::chk_member_unit(x = unit,
+                                          name = "unit")
     if (is.character(val))
         return(val)
     TRUE
 }
 
-setClass("TimeUnitMixin",
+setClass("UnitMixin",
          contains = "VIRTUAL",
-         slots = c(time_unit = "character"),
-         validity = validity_TimeUnitMixin)
+         slots = c(unit = "character"),
+         validity = validity_UnitMixin)
 
 
 
@@ -36,11 +36,11 @@ setClass("IntegerDimvaluesMixin",
 
 validity_DateDimvaluesMixin <- function(object) {
     dimvalues <- object@dimvalues
-    time_unit <- object@time_unit
+    unit <- object@unit
     ## Dates fall on first day of consecutive time units
-    val <- demcheck::chk_is_first_day_time_unit_consec(x = dimvalues,
+    val <- demcheck::chk_is_first_day_unit_consec(x = dimvalues,
                                                        name = "dimvalues",
-                                                       time_unit = time_unit)
+                                                       unit = unit)
     if (is.character(val))
         return(val)
     TRUE
@@ -131,7 +131,7 @@ setClass("PointsDate",
          slots = c(dimvalues = "Date"),
          contains = c("Points",
                       "DateDimvaluesMixin",
-                      "TimeUnitMixin"))
+                      "UnitMixin"))
 
 ## HAS_TESTS
 ## Used with dimtype "age"
@@ -139,7 +139,7 @@ setClass("PointsDuration",
          slots = c(dimvalues = "integer"),
          contains = c("Points",
                       "DurationDimvaluesMixin",
-                      "TimeUnitMixin"))
+                      "UnitMixin"))
 
 setClass("Intervals",
          contains = c("VIRTUAL",
@@ -159,7 +159,7 @@ setClass("IntervalsDate",
          slots = c(dimvalues = "Date"),
          contains = c("Intervals",
                       "DateDimvaluesMixin",
-                      "TimeUnitMixin"))
+                      "UnitMixin"))
 
 ## HAS_TESTS
 ## Used with dimtype "age"
@@ -167,7 +167,7 @@ setClass("IntervalsDuration",
          slots = c(dimvalues = "integer"),
          contains = c("Intervals",
                       "DurationDimvaluesMixin",
-                      "TimeUnitMixin"))
+                      "UnitMixin"))
 
 
 

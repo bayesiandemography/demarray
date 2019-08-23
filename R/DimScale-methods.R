@@ -26,11 +26,11 @@ setMethod("make_dimscale_labels",
           signature(object = "IntervalsDate"),
           function(object) {
               dimvalues <- object@dimvalues
-              time_unit <- object@time_unit
+              unit <- object@unit
               is_open_left <- object@is_open_left
               is_open_right <- object@is_open_right
               make_dimscale_labels_intervals_date(dimvalues = dimvalues,
-                                                  time_unit = time_unit,
+                                                  unit = unit,
                                                   is_open_left = is_open_left,
                                                   is_open_right = is_open_right)
           })
@@ -39,11 +39,11 @@ setMethod("make_dimscale_labels",
           signature(object = "IntervalsDuration"),
           function(object) {
               dimvalues <- object@dimvalues
-              time_unit <- object@time_unit
+              unit <- object@unit
               is_open_left <- object@is_open_left
               is_open_right <- object@is_open_right
               make_dimscale_labels_intervals_date(dimvalues = dimvalues,
-                                                  time_unit = time_unit,
+                                                  unit = unit,
                                                   is_open_left = is_open_left,
                                                   is_open_right = is_open_right)
           })
