@@ -3,7 +3,6 @@
 \docType{package}
 \name{demarray}
 \alias{demarray}
-\alias{demarray-package}
 \title{demarray: Demographic arrays.}
 \description{
 The demarray (pronounced "dem-array") package contains
