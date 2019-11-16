@@ -8,7 +8,7 @@ output: github_document
 # demarray
 
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.org/johnrbryant/demarray.svg?branch=master)](https://travis-ci.org/johnrbryant/demarray)
+[![Travis build status](https://travis-ci.com/bayesiandemography/demarray.svg?branch=master)](https://travis-ci.com/bayesiandemography/demarray)
 [![Lifecycle status](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
@@ -23,8 +23,3 @@ You can install from GitHub with:
 ``` r
 devtools::install_github("demarray")
 ```
-
-
-TODO
-
- - [] add_dim_to_metadata - internal function that adds a dimension to the metadata, including guessing dimtype and dimscale using standard rules.
