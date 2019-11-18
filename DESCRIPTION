@@ -13,9 +13,11 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     demcheck,
+    demprep,
     methods
 Suggests: 
     testthat 
 Remotes:
-    bayesiandemography/demcheck
+    bayesiandemography/demcheck,
+    bayesiandemography/demprep
 RoxygenNote: 7.0.0

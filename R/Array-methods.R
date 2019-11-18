@@ -1,4 +1,6 @@
 
+#' @rdname classif
+#' @export
 setMethod("classif",
           signature(x = "Array"),
           function(x) {
@@ -7,10 +9,12 @@ setMethod("classif",
               ans
           })
 
+#' @rdname dimtypes
+#' @export
 setMethod("dimtypes",
           signature(x = "Array"),
           function(x) {
-              ans <- x@classif
+              ans <- x@dimtypes
               names(ans) <- names(dimnames(x))
               ans
           })

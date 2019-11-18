@@ -17,13 +17,23 @@ validity_Array <- function(object) {
                                            name = "object")
     if (!isTRUE(val))
         return(val)
-    ## dimtypes valid
+    ## dimtypes valid (for the moment we are not enforcing
+    ## the requirement that origin, destination, parent,
+    ## and child dimensions have their pair present)
     val <- demcheck::chk_member_dimtype(x = dimtypes,
                                         name = "dimtypes")
     if (!isTRUE(val))
         return(val)
     val <- demcheck::chk_no_names(x = dimtypes,
                                   name = "dimtypes")
+    if (!isTRUE(val))
+        return(val)
+    val <- demcheck::chk_dimtypes_mutually_compatible(x = dimtypes,
+                                                      name = "dimtypes")
+    if (!isTRUE(val))
+        return(val)
+    val <- demcheck::chk_dimtypes_pairs_suffix(x = dimtypes,
+                                               name = "dimtypes")
     if (!isTRUE(val))
         return(val)
     ## classif valid
@@ -62,16 +72,33 @@ validity_Array <- function(object) {
     }
     TRUE
 }
-    
+
+#' An S4 class to represent a demographic array
+#'
+#' Differences from ordinary array:
+#'
+#' \itemize{
+#'   \item \code{drop} is \code{FALSE} by default
+#' }
+#' 
+#'
+#' @slot dimtypes Character vector
+#' @slot classif Character vector
+#'
+#' @export
 setClass("Array",
          contains = "array",
          slots = c(dimtypes = "character",
                    classif = "character"),
          validity = validity_Array)
 
+#' @rdname Array
+#' @export
 setClass("Counts",
          contains = "Array")
 
+#' @rdname Array
+#' @export
 setClass("Values",
          contains = "Array")
 
