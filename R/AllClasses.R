@@ -17,6 +17,8 @@ validity_Array <- function(object) {
                                            name = "object")
     if (!isTRUE(val))
         return(val)
+    dimnames <- dimnames(object)
+    names <- names(dimnames)
     ## dimtypes valid (for the moment we are not enforcing
     ## the requirement that origin, destination, parent,
     ## and child dimensions have their pair present)
@@ -28,12 +30,11 @@ validity_Array <- function(object) {
                                   name = "dimtypes")
     if (!isTRUE(val))
         return(val)
-    val <- demcheck::chk_dimtypes_mutually_compatible(x = dimtypes,
-                                                      name = "dimtypes")
+    val <- demcheck::chk_dimtypes_mutually_compatible(dimtypes)
     if (!isTRUE(val))
         return(val)
-    val <- demcheck::chk_dimtypes_pairs_suffix(x = dimtypes,
-                                               name = "dimtypes")
+    val <- demcheck::chk_dimtypes_pairs_suffix(dimtypes = dimtypes,
+                                               names = names)
     if (!isTRUE(val))
         return(val)
     ## classif valid
@@ -60,8 +61,6 @@ validity_Array <- function(object) {
     if (!isTRUE(val))
         return(val) 
     ## dimnames and dimtypes consistent
-    dimnames <- dimnames(object)
-    names <- names(dimnames)
     for (i in seq_along(dimnames)) {
         val <- demcheck::chk_labels_valid_for_dimtype(labels = dimnames[[i]],
                                                       dimtype = dimtypes[[i]])
