@@ -16,7 +16,5 @@ Differences from ordinary array:
 
 \describe{
 \item{\code{dimtypes}}{Character vector}
-
-\item{\code{classif}}{Character vector}
 }}
 

@@ -12,24 +12,21 @@
 \alias{Values}
 \title{Create a demographic array}
 \usage{
-Array(x, dimtypes = NULL, classif = NULL)
+Array(x, dimtypes = NULL)
 
-\S4method{Array}{array}(x, dimtypes = NULL, classif = NULL)
+\S4method{Array}{array}(x, dimtypes = NULL)
 
-\S4method{Array}{Array}(x, dimtypes = NULL, classif = NULL)
+\S4method{Array}{Array}(x, dimtypes = NULL)
 
-Counts(x, dimtypes = NULL, classif = NULL)
+Counts(x, dimtypes = NULL)
 
-Values(x, dimtypes = NULL, classif = NULL)
+Values(x, dimtypes = NULL)
 }
 \arguments{
 \item{x}{An array, with a complete set of dimnames.}
 
 \item{dimtypes}{A named character specifying dimtypes
 to be used by each dimension.}
-
-\item{classif}{A named character vector specifying
-classifications to be used by each dimension.}
 }
 \value{
 A \code{\linkS4class{Array}}.
@@ -51,12 +48,11 @@ x <- array(1:6,
                            year = c("1945-1965", "1965-1985", "1985-2000")))
 Array(x, dimtypes = c(year = "cohort"))
 
-# specify dimtypes and classification
+# specify dimtypes
 x <- array(1:6,
            dim = c(2, 3),
            dimnames = list(sex = c("Female", "Male"),
                            year = c("1945-1965", "1965-1985", "1985-2000")))
 Array(x,
-      dimtypes = c(year = "cohort"),
-      classif = c(sex = "Sex", year = "Generation"))
+      dimtypes = c(year = "cohort"))
 }

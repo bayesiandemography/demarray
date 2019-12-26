@@ -6,8 +6,6 @@
 #' @param x An array, with a complete set of dimnames.
 #' @param dimtypes A named character specifying dimtypes
 #' to be used by each dimension.
-#' @param classif A named character vector specifying
-#' classifications to be used by each dimension.
 #'
 #' @return A \code{\linkS4class{Array}}.
 #'
@@ -25,37 +23,17 @@
 #'                            year = c("1945-1965", "1965-1985", "1985-2000")))
 #' Array(x, dimtypes = c(year = "cohort"))
 #'
-#' # specify dimtypes and classification
+#' # specify dimtypes
 #' x <- array(1:6,
 #'            dim = c(2, 3),
 #'            dimnames = list(sex = c("Female", "Male"),
 #'                            year = c("1945-1965", "1965-1985", "1985-2000")))
 #' Array(x,
-#'       dimtypes = c(year = "cohort"),
-#'       classif = c(sex = "Sex", year = "Generation"))
+#'       dimtypes = c(year = "cohort"))
 #' @export
 setGeneric("Array",
-           function(x, dimtypes = NULL, classif = NULL)
+           function(x, dimtypes = NULL)
                standardGeneric("Array"))
-
-
-#' Get or set the classifications used by a demographic array
-#'
-#' @param x An \code{\linkS4class{Array}}.
-#'
-#' @return A named vector
-#'
-#' @examples
-#' x <- Array(array(1:6,
-#'                  dim = c(2, 3),
-#'                  dimnames = list(sex = c("Female", "Male"),
-#'                                  year = c("1945-1965", "1965-1985", "1985-2000"))),
-#'            classif = c(sex = "Sex", year = "Generation"))
-#' classif(x)
-#' @export 
-setGeneric("classif",
-           function(x)
-               standardGeneric("classif"))
 
 
 #' Get or set dimtypes
@@ -73,7 +51,7 @@ setGeneric("classif",
 #' \code{"age"} \tab Age, as points or intervals \tab <any> \cr
 #' \code{"time"} \tab Time, as points or intervals \cr
 #' \code{"cohort"} \tab Cohort, measured as points or intervals \tab <any> \cr
-#' \code{"state"} \tab Any qualitative attribute \tab  <any> \cr
+#' \code{"attribute"} \tab Any qualitative attribute \tab  <any> \cr
 #' \code{"origin"}, \code{"destination"} \tab Starting and finishing states
 #' \tab <any> \cr
 #' \code{"parent"}, \code{"child"} \tab Parent's state versus child's state
@@ -81,6 +59,7 @@ setGeneric("classif",
 #' \code{"iteration"} \tab Simulation number \tab Positive integers \cr
 #' \code{"quantile"} \tab Position in distribution \tab Percentage \cr
 #' \code{"triangle"} \tab Lexis triangle \tab \code{"Lower", "Upper"} \cr
+#' \code{"pool"} \tab Type of migration flow \tab \code{"Ins", "Outs"} \cr
 #' }
 #'
 #' \code{"origin"}, \code{"destination"}.  Starting and
@@ -113,7 +92,9 @@ setGeneric("classif",
 #'
 #' \code{"triangle"}.  Lexis triangle.
 #'
-#' @inheritParams classif
+#' \code{"pool"}. Direction of flow in "pool" model of migration.
+#'
+#' @param x An object of class \code{\linkS4class{Array}}.
 #'
 #' @return A named vector
 #'
@@ -128,3 +109,14 @@ setGeneric("classif",
 setGeneric("dimtypes",
            function(x)
                standardGeneric("dimtypes"))
+
+
+
+
+setGeneric("make_labels",
+           function(object) {
+               labels <- object@labels
+               include_na <- object@include_na
+               make_labels_default(labels = labels,
+                                   include_na = include_na)
+           })

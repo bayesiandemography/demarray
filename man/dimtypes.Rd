@@ -11,7 +11,7 @@ dimtypes(x)
 \S4method{dimtypes}{Array}(x)
 }
 \arguments{
-\item{x}{An \code{\linkS4class{Array}}.}
+\item{x}{An object of class \code{\linkS4class{Array}}.}
 }
 \value{
 A named vector
@@ -31,7 +31,7 @@ The range of dimtypes are as follows:
 \code{"age"} \tab Age, as points or intervals \tab <any> \cr
 \code{"time"} \tab Time, as points or intervals \cr
 \code{"cohort"} \tab Cohort, measured as points or intervals \tab <any> \cr
-\code{"state"} \tab Any qualitative attribute \tab  <any> \cr
+\code{"attribute"} \tab Any qualitative attribute \tab  <any> \cr
 \code{"origin"}, \code{"destination"} \tab Starting and finishing states
 \tab <any> \cr
 \code{"parent"}, \code{"child"} \tab Parent's state versus child's state
@@ -39,6 +39,7 @@ The range of dimtypes are as follows:
 \code{"iteration"} \tab Simulation number \tab Positive integers \cr
 \code{"quantile"} \tab Position in distribution \tab Percentage \cr
 \code{"triangle"} \tab Lexis triangle \tab \code{"Lower", "Upper"} \cr
+\code{"pool"} \tab Type of migration flow \tab \code{"Ins", "Outs"} \cr
 }
 
 \code{"origin"}, \code{"destination"}.  Starting and
@@ -70,6 +71,8 @@ with dimtype \code{"quantile"}.  If an object has a dimension with dimtype
 \code{"iteration"}.
 
 \code{"triangle"}.  Lexis triangle.
+
+\code{"pool"}. Direction of flow in "pool" model of migration.
 }
 \examples{
 x <- Array(array(1:6,
