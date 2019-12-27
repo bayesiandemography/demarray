@@ -4,7 +4,7 @@
 #' Create an object of class \code{\linkS4class{DemographicArray}}.
 #'
 #' @param x An array, with a complete set of dimnames.
-#' @param dimtypes A named character specifying dimtypes
+#' @param dimtypes A named character vector specifying dimtypes
 #' to be used by each dimension.
 #'
 #' @return A \code{\linkS4class{DemographicArray}}.
