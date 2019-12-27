@@ -18,8 +18,8 @@ output: github_document
 
 ## Installation
 
-You can install from GitHub with:
+To install from GitHub, use:
 
 ``` r
-devtools::install_github("demarray")
+devtools::install_github("bayesiandemography/demarray")
 ```

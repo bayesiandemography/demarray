@@ -1,7 +1,7 @@
 
-## Array ----------------------------------------------------------------------
+## DemographicArray ----------------------------------------------------------------------
 
-validity_Array <- function(object) {
+validity_DemographicArray <- function(object) {
     dim <- dim(object)
     dimtypes <- object@dimtypes
     ## is numeric
@@ -60,20 +60,20 @@ validity_Array <- function(object) {
 #' @slot dimtypes Character vector
 #'
 #' @export
-setClass("Array",
+setClass("DemographicArray",
          contains = "array",
          slots = c(dimtypes = "character"),
-         validity = validity_Array)
+         validity = validity_DemographicArray)
 
-#' @rdname Array
+#' @rdname DemographicArray
 #' @export
 setClass("Counts",
-         contains = "Array")
+         contains = "DemographicArray")
 
-#' @rdname Array
+#' @rdname DemographicArray
 #' @export
 setClass("Values",
-         contains = "Array")
+         contains = "DemographicArray")
 
 
 ## Labels -------------------------------------------------------------------

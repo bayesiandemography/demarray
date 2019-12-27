@@ -1,39 +1,39 @@
 
 #' Create a demographic array
 #'
-#' Create an object of class \code{\linkS4class{Array}}.
+#' Create an object of class \code{\linkS4class{DemographicArray}}.
 #'
 #' @param x An array, with a complete set of dimnames.
 #' @param dimtypes A named character specifying dimtypes
 #' to be used by each dimension.
 #'
-#' @return A \code{\linkS4class{Array}}.
+#' @return A \code{\linkS4class{DemographicArray}}.
 #'
 #' @examples
 #' x <- array(1:6,
 #'            dim = c(2, 3),
 #'            dimnames = list(sex = c("Female", "Male"),
 #'                            age = c("0-14", "15-64", "65+")))
-#' Array(x)
+#' DemographicArray(x)
 #'
 #' # specify dimtype
 #' x <- array(1:6,
 #'            dim = c(2, 3),
 #'            dimnames = list(sex = c("Female", "Male"),
 #'                            year = c("1945-1965", "1965-1985", "1985-2000")))
-#' Array(x, dimtypes = c(year = "cohort"))
+#' DemographicArray(x, dimtypes = c(year = "cohort"))
 #'
 #' # specify dimtypes
 #' x <- array(1:6,
 #'            dim = c(2, 3),
 #'            dimnames = list(sex = c("Female", "Male"),
 #'                            year = c("1945-1965", "1965-1985", "1985-2000")))
-#' Array(x,
+#' DemographicArray(x,
 #'       dimtypes = c(year = "cohort"))
 #' @export
-setGeneric("Array",
+setGeneric("DemographicArray",
            function(x, dimtypes = NULL)
-               standardGeneric("Array"))
+               standardGeneric("DemographicArray"))
 
 
 #' Get or set dimtypes
@@ -94,12 +94,14 @@ setGeneric("Array",
 #'
 #' \code{"pool"}. Direction of flow in "pool" model of migration.
 #'
-#' @param x An object of class \code{\linkS4class{Array}}.
+#' @param x An object of class \code{\linkS4class{DemographicArray}}.
+#' \emph{Add reference to demographic account, once we have implemented
+#' them.}
 #'
 #' @return A named vector
 #'
 #' @examples
-#' x <- Array(array(1:6,
+#' x <- DemographicArray(array(1:6,
 #'                  dim = c(2, 3),
 #'                  dimnames = list(sex = c("Female", "Male"),
 #'                                  time = c(2000, 2010, 2020))))
@@ -111,12 +113,52 @@ setGeneric("dimtypes",
                standardGeneric("dimtypes"))
 
 
+#' Whether cross-classifying dimensions have quantitative scales
+#'
+#' Check how functions in \code{demarray} and associated packages
+#' will interpret the labels along each dimension. In particular,
+#' check whether the functions will interpret the labels as representing
+#' a quantitative scale, such as age or calendar time.
+#'
+#' To change the labels (and hence, potentially, to switch
+#' between quantitative and qualitative scales), use
+#' function \code{\link[base]{dimnames}}.
+#'
+#' @inheritParams dimtypes
+#' 
+#' @return A named logical vector.
+#'
+#' @seealso dimtypes
+#'
+#' @examples
+#' x <- Counts(array(1:8,
+#'                   dim = c(2, 2, 2),
+#'                   dimnames = list(sex = c("Female", "Male"),
+#'                                   age = c("0-39", "40+"),
+#'                                   quarter = c("2015 Q1", "2015 Q3"))))
+#' x
+#' is_quant_scale(x)
+#' dimnames(x)$age <- c("Young", "Old")
+#' x
+#' is_quant_scale(x)
+#' @export
+setGeneric("is_quant_scale",
+           function(x) {
+               stop(gettextf("cannot handle object of class \"%s\"",
+                             class(x)),
+                    call. = FALSE)
+           })
 
+setGeneric("labels_imply_quant_scale",
+           function(x) {
+               stop(gettextf("cannot handle object of class \"%s\"",
+                             class(x)),
+                    call. = FALSE)
+           })
 
 setGeneric("make_labels",
-           function(object) {
-               labels <- object@labels
-               include_na <- object@include_na
-               make_labels_default(labels = labels,
-                                   include_na = include_na)
+           function(x) {
+               stop(gettextf("cannot handle object of class \"%s\"",
+                             class(x)),
+                    call. = FALSE)
            })

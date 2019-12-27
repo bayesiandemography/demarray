@@ -1,20 +1,7 @@
 
-#' Derive a "Labels" object from a set of
-#' labels and a dimtype
-#'
-#' Derive an object of class \code{\linkS4class{Labels}}
-#' from a vector of labels and the name of a dimtype.
-#' \code{infer_lab} is not normally called directly
-#' by end-users.
-#'
-#' @param labels A character vector.
-#' @param dimtype A character vector of length 1.
-#'
-#' @return An object of class \code{\linkS4class{Labels}}.
-#'
-#' @keywords internal
-#'
-#' @export
+## General function -----------------------------------------------------------
+
+## HAS_TESTS
 infer_lab <- function(labels, dimtype) {
     fun <- switch(EXPR = dimtype,
                   attribute = ,
@@ -28,13 +15,15 @@ infer_lab <- function(labels, dimtype) {
                   iterations = infer_lab_iterations,
                   age = infer_lab_age,
                   time = infer_lab_time,
-                  cohort = infer_lab_cohort)
+                  cohort = infer_lab_cohort,
+                  stop(gettextf("\"%s\" is not a valid %s",
+                                dimtype, "dimtype")))
     fun(labels)
 }
 
         
 
-## Functions for dimtypes -----------------------------------------------------
+## Functions for specific dimtypes --------------------------------------------
 
 ## dimtypes "pool", "triangles", and "quantiles" all have
 ## their own specialised 'infer_lab' functions

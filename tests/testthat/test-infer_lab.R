@@ -1,7 +1,41 @@
 
 context("infer_lab")
 
-## Functions for dimtypes -----------------------------------------------------
+## General function -----------------------------------------------------------
+
+test_that("infer_lab gives correct answer with valid inputs", {
+    infer_lab <- demarray:::infer_lab
+    labels <- 1:3
+    expect_identical(infer_lab(labels = labels, dimtype = "time"),
+                     LabIntegers(int_min = 1L,
+                                 int_max = 3L,
+                                 include_na = FALSE))
+    labels <- c("0", "100-999", NA, "-5--1")
+    expect_identical(infer_lab(labels = labels, dimtype = "attribute"),
+                     LabGroupedIntEnumerations(breaks = c(-5L, 0L, 1L, 100L, 1000L),
+                                               open_first = FALSE,
+                                               open_last = FALSE,
+                                               include_na = TRUE))
+    labels <- c("A", "B", "C")
+    expect_identical(infer_lab(labels = labels, dimtype = "age"),
+                     LabCategories(labels = labels,
+                                   include_na = FALSE))
+    labels <- character()
+    expect_identical(infer_lab(labels = labels, dimtype = "cohort"),
+                     LabCategories(labels = character(),
+                                   include_na = FALSE))
+})
+
+test_that("infer_lab throws correct error with invalid inputs", {
+    infer_lab <- demarray:::infer_lab
+    labels <- 1:3
+    expect_error(infer_lab(labels = labels, dimtype = "wrong"),
+                 "\"wrong\" is not a valid dimtype")
+})
+
+
+
+## Functions for specific dimtypes --------------------------------------------
 
 test_that("infer_lab_attribute gives correct answer with valid inputs", {
     infer_lab_attribute <- demarray:::infer_lab_attribute
