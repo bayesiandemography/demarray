@@ -3,7 +3,8 @@
 \name{is_quant_scale}
 \alias{is_quant_scale}
 \alias{is_quant_scale,DemographicArray-method}
-\title{Whether cross-classifying dimensions have quantitative scales}
+\title{See whether cross-classifying dimensions of demographic array
+or account have quantitative scales}
 \usage{
 is_quant_scale(x)
 
@@ -18,14 +19,27 @@ them.}}
 A named logical vector.
 }
 \description{
-Check how functions in \code{demarray} and associated packages
-will interpret the labels along each dimension. In particular,
-check whether the functions will interpret the labels as representing
-a quantitative scale, such as age or calendar time.
+See how functions in \code{demarray} and associated packages
+will interpret the labels from each dimension of a demographic
+array or account.
 }
 \details{
-To change the labels (and hence, potentially, to switch
-between quantitative and qualitative scales), use
+Each dimension of a demographic array has a measurement scale.
+A dimension may, for instance, represent age using years since birth,
+or represent geographical region using the name of that region.
+Years since birth is an example of a quantitative measurement
+scale, and region name is an example of a qualitative measurement
+scale. Functions in \code{demarray} and associated packages infer
+measurement scales from \code{\link{dimtypes}} and dimnames.
+
+Function \code{is_quant_scale} returns a logical vector stating,
+for each dimension of a demographic array, whether the that dimension
+has quantitative measurement scale. When used with a demographic
+account, \code{is_quant_scale} returns the values for the population
+series.
+
+To change the dimnames, and hence, potentially, to switch
+between quantitative and qualitative scales, use base
 function \code{\link[base]{dimnames}}.
 }
 \examples{
@@ -33,7 +47,7 @@ x <- Counts(array(1:8,
                   dim = c(2, 2, 2),
                   dimnames = list(sex = c("Female", "Male"),
                                   age = c("0-39", "40+"),
-                                  quarter = c("2015 Q1", "2015 Q3"))))
+                                  month = c("2015 Jan", "2015 Jul"))))
 x
 is_quant_scale(x)
 dimnames(x)$age <- c("Young", "Old")

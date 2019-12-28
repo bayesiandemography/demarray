@@ -113,15 +113,29 @@ setGeneric("dimtypes",
                standardGeneric("dimtypes"))
 
 
-#' Whether cross-classifying dimensions have quantitative scales
+#' See whether cross-classifying dimensions of demographic array
+#' or account have quantitative scales
 #'
-#' Check how functions in \code{demarray} and associated packages
-#' will interpret the labels along each dimension. In particular,
-#' check whether the functions will interpret the labels as representing
-#' a quantitative scale, such as age or calendar time.
+#' See how functions in \code{demarray} and associated packages
+#' will interpret the labels from each dimension of a demographic
+#' array or account.
+#' 
+#' Each dimension of a demographic array has a measurement scale.
+#' A dimension may, for instance, represent age using years since birth,
+#' or represent geographical region using the name of that region.
+#' Years since birth is an example of a quantitative measurement
+#' scale, and region name is an example of a qualitative measurement
+#' scale. Functions in \code{demarray} and associated packages infer
+#' measurement scales from \code{\link{dimtypes}} and dimnames.
 #'
-#' To change the labels (and hence, potentially, to switch
-#' between quantitative and qualitative scales), use
+#' Function \code{is_quant_scale} returns a logical vector stating,
+#' for each dimension of a demographic array, whether the that dimension
+#' has quantitative measurement scale. When used with a demographic
+#' account, \code{is_quant_scale} returns the values for the population
+#' series.
+#' 
+#' To change the dimnames, and hence, potentially, to switch
+#' between quantitative and qualitative scales, use base
 #' function \code{\link[base]{dimnames}}.
 #'
 #' @inheritParams dimtypes
@@ -135,7 +149,7 @@ setGeneric("dimtypes",
 #'                   dim = c(2, 2, 2),
 #'                   dimnames = list(sex = c("Female", "Male"),
 #'                                   age = c("0-39", "40+"),
-#'                                   quarter = c("2015 Q1", "2015 Q3"))))
+#'                                   month = c("2015 Jan", "2015 Jul"))))
 #' x
 #' is_quant_scale(x)
 #' dimnames(x)$age <- c("Young", "Old")
@@ -157,6 +171,35 @@ setGeneric("labels_imply_quant_scale",
            })
 
 setGeneric("make_labels",
+           function(x) {
+               stop(gettextf("cannot handle object of class \"%s\"",
+                             class(x)),
+                    call. = FALSE)
+           })
+
+
+#' Get first and last labelsl used by each dimension.
+#'
+#' Get the first and last categories used by each dimension
+#' of an array or demographic account. These categories can
+#' be useful in understanding the structure of the array
+#' or account. When used with an account, \code{limits}
+#' returns the values for the population series.
+#'
+#' @param x An object of class \code{\link[base]{array}},
+#' \code{\linkS4class{DemographicArray}}, or a demographic account.
+#'
+#' @return A data frame.
+#'
+#' @examples
+#' x <- Counts(array(1:8,
+#'                   dim = c(2, 4),
+#'                   dimnames = list(sex = c("Female", "Male"),
+#'                                   age = c("0-14", "15-39", "40-64", "65+"))))
+#' x
+#' limits(x)
+#' @export
+setGeneric("limits",
            function(x) {
                stop(gettextf("cannot handle object of class \"%s\"",
                              class(x)),
