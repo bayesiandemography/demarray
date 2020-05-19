@@ -34,8 +34,8 @@ validity_DemographicArray <- function(object) {
     val <- demcheck::chk_dimtypes_mutually_compatible(dimtypes)
     if (!isTRUE(val))
         return(val)
-    val <- demcheck::chk_dimtypes_pairs_suffix(dimtypes = dimtypes,
-                                               names = names)
+    val <- demcheck::chk_names_pairs_suffix(dimtypes = dimtypes,
+                                            names = names)
     if (!isTRUE(val))
         return(val)
     ## dim and dimtypes consistent
@@ -122,7 +122,7 @@ setClass("Labels",
 
 validity_LabCategories <- function(object) {
     labels <- object@labels
-    val <- demcheck::chk_categories_complete(x = labels,
+    val <- demcheck::chk_character_complete(x = labels,
                                              name = "labels")
     if (!isTRUE(val))
         return(val)
@@ -185,11 +185,11 @@ setClass("LabPool",
 
 validity_LabQuantiles <- function(object) {
     labels <- object@labels
-    val <- demcheck::chk_categories_complete(x = labels,
-                                             name = "labels")
+    val <- demcheck::chk_character_complete(x = labels,
+                                            name = "labels")
     if (!isTRUE(val))
         return(val)
-    val <- demcheck::chk_is_valid_quantile(x = labels,
+    val <- demcheck::chk_valid_quantile(x = labels,
                                            name = "labels")
     if (!isTRUE(val))
         return(val)
@@ -213,11 +213,11 @@ validity_LabIntegers <- function(object) {
     int_max <- object@int_max
     for (name in c("int_min", "int_max")) {
         x <- methods::slot(object, name)
-        val <- demcheck::chk_is_length_1(x = x,
+        val <- demcheck::chk_length_1(x = x,
                                          name = name)
         if (!isTRUE(val))
             return(val)
-        val <- demcheck::chk_is_not_na_scalar(x = x,
+        val <- demcheck::chk_not_na_scalar(x = x,
                                               name = name)
         if (!isTRUE(val))
             return(val)
@@ -246,12 +246,12 @@ validity_LabGroupedInt <- function(object) {
     breaks <- object@breaks
     open_first <- object@open_first
     open_last <- object@open_last
-    val <- demcheck::chk_is_not_na_vector(x = breaks,
-                                          name = "breaks")
+    val <- demcheck::chk_not_na_vector(x = breaks,
+                                       name = "breaks")
     if (!isTRUE(val))
         return(val)
-    val <- demcheck::chk_is_strictly_increasing(x = breaks,
-                                                name = "breaks")
+    val <- demcheck::chk_strictly_increasing(x = breaks,
+                                             name = "breaks")
     if (!isTRUE(val))
         return(val)
     for (name in c("open_first", "open_last")) {
@@ -311,11 +311,11 @@ validity_LabCalendar <- function(object) {
     open_last <- object@open_last
     for (name in c("break_min", "break_max")) {
         x <- methods::slot(object, name)
-        val <- demcheck::chk_is_length_1(x = x,
+        val <- demcheck::chk_length_1(x = x,
                                          name = name)
         if (!isTRUE(val))
             return(val)
-        val <- demcheck::chk_is_not_na_scalar(x = x,
+        val <- demcheck::chk_not_na_scalar(x = x,
                                               name = name)
         if (!isTRUE(val))
             return(val)
@@ -357,9 +357,9 @@ setClass("LabCalendar",
 validity_LabCalendarQuarters <- function(object) {
     for (name in c("break_min", "break_max")) {
         x <- methods::slot(object, name)
-        val <- demcheck::chk_is_first_day_unit_scalar(x = x,
-                                                      name = name,
-                                                      unit = "quarter")
+        val <- demcheck::chk_first_day_unit_scalar(x = x,
+                                                   name = name,
+                                                   unit = "quarter")
         if (!isTRUE(val))
             return(val)
     }
@@ -375,9 +375,9 @@ setClass("LabCalendarQuarters",
 validity_LabCalendarMonths <- function(object) {
     for (name in c("break_min", "break_max")) {
         x <- methods::slot(object, name)
-        val <- demcheck::chk_is_first_day_unit_scalar(x = x,
-                                                      name = name,
-                                                      unit = "month")
+        val <- demcheck::chk_first_day_unit_scalar(x = x,
+                                                   name = name,
+                                                   unit = "month")
         if (!isTRUE(val))
             return(val)
     }
@@ -401,11 +401,11 @@ validity_LabDurations <- function(object) {
     open_last <- object@open_last
     for (name in c("break_min", "break_max")) {
         x <- methods::slot(object, name)
-        val <- demcheck::chk_is_length_1(x = x,
+        val <- demcheck::chk_length_1(x = x,
                                          name = name)
         if (!isTRUE(val))
             return(val)
-        val <- demcheck::chk_is_not_na_scalar(x = x,
+        val <- demcheck::chk_not_na_scalar(x = x,
                                               name = name)
         if (!isTRUE(val))
             return(val)

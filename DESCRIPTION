@@ -20,4 +20,4 @@ Suggests:
 Remotes:
     bayesiandemography/demcheck,
     bayesiandemography/demprep
-RoxygenNote: 7.0.0
+RoxygenNote: 7.1.0
