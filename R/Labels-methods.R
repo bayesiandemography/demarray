@@ -78,6 +78,16 @@ setMethod("labels_imply_quant_scale",
               TRUE
           })
 
+## length ---------------------------------------------------------------------
+
+setMethod("length",
+          signature(x = "DimLabels"),
+          function(x) {
+              values <- x@values
+              length(values)
+          })
+
+
 
 ## make_labels ----------------------------------------------------------------
 

@@ -1,0 +1,113 @@
+---
+title: "demarray"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{demmap}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(demarray)
+```
+
+## Introduction
+
+## op
+
+`x` is any array with complete metadata
+
+| Condition                    | `y` is Counts | `y` is Values | `y` is array |
+|:-----------------------------|:--------------|:-------- -----|:-------------|
+| `x` has dimensions not present in `y` | Throw errror | Add dimensions to `y` | Throw error |
+| `y` has dimensions not present in `x` | Collapse dimensions in `y` | Throw | Throw error |
+| On shared dimension, categories for `x` have many-to-one relationship to categories for `y` | Throw error | Split categories in `y` to match `x` | Throw error |
+| On shared dimension, categories for `y` have many-to-one relationship to categories for `y` | Collapse categories in `y` to match `x` | Throw error | Throw error |
+
+
+
+
+# Labels
+
+## Default
+
+| dimlabels       |  example             |
+|:----------------|:---------------------|
+| Categories      | "New Zealand", "Australia" |
+
+- only restriction is that unique and non-blank (NA allowed)
+- iterations are categories, convention that use 1, 2, 3
+
+
+## Integers
+
+"2020", "2021", "2022"
+"<0", "5", "10", "15+"
+Cannot have duplicates. Can have open, NA
+
+## Quantities
+
+Plain integers
+"2020", "5", "0"
+
+Groups
+"1-4", "5-9", "100-999"
+
+Open
+"<2000", "100+"
+
+Mixtures
+"0", "1-4", "5-9", "10+"
+
+Not necessarily covering whole range
+"0-4", "5-9", "15-19", "20-24"
+
+
+## Intervals
+
+Intervals *deliberately* ambiguous more ambiguous than DateRanges. Conventional labels for years are ambiguous. Using intervals, can represent info in labels without forcing user to clarify, except when essential to do so.
+
+"<2000", "2000-2005", "2005-2010", "2010-2015", "2015-2010", 2020+", "2000-2001"
+
+
+## Calendar
+
+| dimlabel        |  example             |
+|:----------------|:---------------------|
+| Quarters         | "<1990 Q4", 2000 Q1", "2020 Q3+" |
+| Months          | "<2000 Jan", "2020 Aug", "2025 Feb+" |
+| DatePoints          | "2020-01-01", "2005-06-01" |
+| DateRanges         | "[2020-01-01, 2020-12-31]", (-Inf, 2019-12-31]" |
+
+
+
+## Specialised
+
+| dimlabels     | dimtype   |  example      |
+|:--------------|:----------|:--------------|
+| Triangles     | triangles | "Lower", "Upper" |
+| Directions    | directions | "In", "Out"      |
+| Quantiles     | quantiles | "2.5%", "50%", "97.5%" |
+
+- if 'strict' is TRUE, dimensions with the indicated dimtype must have the associated dimlabels
+- can use these dimlabels with other dimtypes
+
+
+## Notes
+
+Messy
+- aim is to represent messy labeling conventions - inherits messiness from the conventions
+- tangled relationship
+  - everything a special case of Categories
+- original labeling conventions ambiguous. Deliberately carry that ambiguity over to the labels
+- "lazy disambiguation" - only disambiguate when we need to
+
+
+rather than impose new unambiguous labelling system, allow people to work with existing ambiguous system

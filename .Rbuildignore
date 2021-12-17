@@ -3,3 +3,5 @@
 ^\.travis\.yml$
 ^Makefile$
 ^under_construction$
+^.*\.Rproj$
+^\.Rproj\.user$

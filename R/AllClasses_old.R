@@ -96,175 +96,259 @@ NULL
 #' @rdname Labels-class
 setClass("Labels",
          contains = "VIRTUAL",
-         slots = c(values = "vector"))
+         slots = c(values = "vector",
+                   include_na = "logical"),
+         validity = function(object) {
+             include_na <- object@include_na
+             val <- demcheck::chk_is_logical_flag(x = include_na,
+                                                  name = "include_na")
+             if (!isTRUE(val))
+                 return(val)
+             TRUE
+         })
 
 
 ## Categories -----------------------------------------------------------------
 
-## NO_TESTS
+## HAS_TESTS
 #' @rdname Labels-class
 setClass("Categories",
          contains = "Labels",
          validity = function(object) {
              values <- object@values
-             val <- demcheck::chk_values_categories(values)
+             val <- demcheck::chk_label_values_categories(values)
              if (!isTRUE(val))
                  return(val)
              TRUE
          })
          
-## NO_TESTS
+
+## Specialised classes --------------------------------------------------------
+
+## HAS_TESTS
 #' @rdname Labels-class
 setClass("Triangles",
          contains = "Categories",
          prototype = prototype(values = c("Lower", "Upper")),
          validity = function(object) {
              values <- object@values
-             val <- demcheck::chk_values_triangles(values)
+             val <- demcheck::chk_label_values_triangles(values)
              if (!isTRUE(val))
                  return(val)
              TRUE
          })
 
-## NO_TESTS
+## HAS_TESTS
 #' @rdname Labels-class
 setClass("Direction",
          contains = "Categories",
          prototype = prototype(values = c("In", "Out")),
          validity = function(object) {
              values <- object@values
-             val <- demcheck::chk_values_direction(values)
+             val <- demcheck::chk_label_values_direction(values)
              if (!isTRUE(val))
                  return(val)
              TRUE
          })
 
-## NO_TESTS
+## HAS_TESTS
 #' @rdname Labels-class
 setClass("Quantiles",
          contains = "Categories",
          validity = function(object) {
              values <- object@values
-             val <- demcheck::chk_values_quantiles(values)
+             val <- demcheck::chk_label_values_quantiles(values)
              if (!isTRUE(val))
                  return(val)
              TRUE
          })
 
 
-## Iterations -----------------------------------------------------------------
+## Numeric --------------------------------------------------------------------
 
-## NO_TESTS
-#' @rdname Labels-class
-setClass("Iterations",
-         contains = "Labels",
-         validity = function(object) {
-             values <- object@values
-             val <- demcheck::chk_values_iterations(values)
-             if (!isTRUE(val))
-                 return(val)
-             TRUE
-         })
-
-
-## Pairs ----------------------------------------------------------------------
-
-## Each subclass of the "Pairs" virtual superclass
-## has its own validity function because
-## this validity function is used for other purposes,
-## eg the 'make_labels' functions.
-
-## NO_TESTS
-#' @rdname Labels-class
-setClass("Pairs",
-         contains = c("Labels", "VIRTUAL"))
-
-## NO_TESTS
+## HAS_TESTS
 #' @rdname Labels-class
 setClass("Integers",
-         contains = "Pairs",
-         validity = function(object) {
-             values <- object@values
-             val <- demcheck::chk_values_integers(values)
-             if (!isTRUE(val))
-                 return(val)
-             TRUE
-         })
-
-## NO_TESTS
-#' @rdname Labels-class
-setClass("Intervals",
-         contains = "Pairs",
-         validity = function(object) {
-             values <- object@values
-             val <- demcheck::chk_values_intervals(values)
-             if (!isTRUE(val))
-                 return(val)
-             TRUE
-         })
-
-## NO_TESTS
-#' @rdname Labels-class
-setClass("Quantities",
-         contains = "Pairs",
-         validity = function(object) {
-             values <- object@values
-             val <- demcheck::chk_values_quantities(values)
-             if (!isTRUE(val))
-                 return(val)
-             TRUE
-         })
-
-## NO_TESTS
-#' @rdname Labels-class
-setClass("Quarters",
-         contains = "Pairs",
-         validity = function(object) {
-             values <- object@values
-             val <- demcheck::chk_values_quarters(values)
-             if (!isTRUE(val))
-                 return(val)
-             TRUE
-         })
-
-## NO_TESTS
-#' @rdname Labels-class
-setClass("Months",
-         contains = "Pairs",
-         validity = function(object) {
-             values <- object@values
-             val <- demcheck::chk_values_months(values)
-             if (!isTRUE(val))
-                 return(val)
-             TRUE
-         })
-
-## NO_TESTS
-#' @rdname Labels-class
-setClass("DateRanges",
-         contains = "Pairs",
-         validity = function(object) {
-             values <- object@values
-             val <- demcheck::chk_values_dateranges(values)
-             if (!isTRUE(val))
-                 return(val)
-             TRUE
-         })
-
-
-## DatesPoints ----------------------------------------------------------------
-
-## NO_TESTS
-#' @rdname Labels-class
-setClass("DatePoints",
          contains = "Labels",
          validity = function(object) {
              values <- object@values
-             val <- demcheck::chk_values_datepoints(values)
+             val <- demcheck::chk_label_values_integers(values)
              if (!isTRUE(val))
                  return(val)
              TRUE
          })
 
 
+## HAS_TESTS
+#' @rdname Labels-class
+setClass("Quantities",
+         contains = "Labels",
+         validity = function(object) {
+             values <- object@values
+             val <- demcheck::chk_label_values_quantities(values)
+             if (!isTRUE(val))
+                 return(val)
+             TRUE
+         })
 
+
+## HAS_TESTS
+#' @rdname Labels-class
+setClass("Intervals",
+         contains = "Labels",
+         validity = function(object) {
+             values <- object@values
+             val <- demcheck::chk_label_values_intervals(values)
+             if (!isTRUE(val))
+                 return(val)
+             TRUE
+         })
+
+
+## Dates ----------------------------------------------------------------------
+
+## HAS_TESTS
+#' @rdname Labels-class
+setClass("Quarters",
+         contains = "Labels",
+         validity = function(object) {
+             values <- object@values
+             val <- demcheck::chk_label_values_quarters(values)
+             if (!isTRUE(val))
+                 return(val)
+             TRUE
+         })
+
+## HAS_TESTS
+#' @rdname Labels-class
+setClass("Months",
+         contains = "Labels",
+         validity = function(object) {
+             values <- object@values
+             val <- demcheck::chk_label_values_months(values)
+             if (!isTRUE(val))
+                 return(val)
+             TRUE
+         })
+
+## HAS_TESTS
+#' @rdname Labels-class
+setClass("Dates",
+         contains = "Labels",
+         validity = function(object) {
+             values <- object@values
+             val <- demcheck::chk_label_values_dates(values)
+             if (!isTRUE(val))
+                 return(val)
+             TRUE
+         })
+
+## HAS_TESTS
+#' @rdname Labels-class
+setClass("DateRanges",
+         contains = "Labels",
+         validity = function(object) {
+             values <- object@values
+             val <- demcheck::chk_label_values_dateranges(values)
+             if (!isTRUE(val))
+                 return(val)
+             TRUE
+         })
+
+
+####################
+
+
+validity_CalendarQuarters <- function(object) {
+    for (name in c("break_min", "break_max")) {
+        x <- methods::slot(object, name)
+        val <- demcheck::chk_first_day_unit_scalar(x = x,
+                                                   name = name,
+                                                   unit = "quarter")
+        if (!isTRUE(val))
+            return(val)
+    }
+    TRUE
+}
+
+## HAS_TESTS
+#' @rdname Labels-class
+setClass("LabCalendarQuarters",
+         contains = "LabCalendar",
+         validity = validity_CalendarQuarters)
+
+validity_CalendarMonths <- function(object) {
+    for (name in c("break_min", "break_max")) {
+        x <- methods::slot(object, name)
+        val <- demcheck::chk_first_day_unit_scalar(x = x,
+                                                   name = name,
+                                                   unit = "month")
+        if (!isTRUE(val))
+            return(val)
+    }
+    TRUE
+}
+
+## HAS_TESTS
+#' @rdname Labels-class
+setClass("LabCalendarMonths",
+         contains = "LabCalendar",
+         validity = validity_CalendarMonths)
+
+
+## Durations ------------------------------------------------------------------
+
+## contains the breaks between intervals
+
+validity_Durations <- function(object) {
+    break_min <- object@break_min
+    break_max <- object@break_max
+    open_last <- object@open_last
+    for (name in c("break_min", "break_max")) {
+        x <- methods::slot(object, name)
+        val <- demcheck::chk_length_1(x = x,
+                                         name = name)
+        if (!isTRUE(val))
+            return(val)
+        val <- demcheck::chk_not_na_scalar(x = x,
+                                              name = name)
+        if (!isTRUE(val))
+            return(val)
+    }
+    val <- demcheck::chk_is_logical_flag(x = open_last,
+                                         name = "open_last")
+    if (!isTRUE(val))
+        return(val)
+    if (break_max < break_min)
+        return(gettextf("'%s' [%s] less than '%s' [%s]",
+                        "break_max", break_max, "break_min", break_min))
+    if (break_min == break_max) {
+        if (!open_last)
+            return(gettextf("'%s' [%s] equals '%s' but '%s' is %s",
+                            "break_min",
+                            break_min,
+                            "break_max",
+                            "open_last",
+                            "FALSE"))
+    }
+    TRUE
+}
+
+#' @rdname Labels-class
+setClass("LabDurations",
+         contains = c("Labels",
+                      "VIRTUAL"),
+         slots = c(break_min = "integer",
+                   break_max = "integer",
+                   open_last = "logical"),
+         validity = validity_Durations)
+
+## HAS_TESTS
+#' @rdname Labels-class
+setClass("LabDurationsQuarters",
+         contains = "LabDurations")
+
+## HAS_TESTS
+#' @rdname Labels-class
+setClass("LabDurationsMonths",
+         contains = "LabDurations")

@@ -1,0 +1,25 @@
+
+
+
+Algorithm for op(x, y, FUN, filter = FALSE, part = FALSE) --------------------------------------------------
+
+
+
+
+y is Counts
+- if 'x' has a dimension that 'y' does not, raise an error
+- if 'y' as a dimension that 'x' does not, collapse the dimension
+- use any mappings (or implied mappings) to convert categories on
+shared dimensions to version used by 'x'
+- if shared dimension has categories in 'y' but not in 'x'
+    - if filter is TRUE, remove these cateogies
+    - if filter is FALSE, raise an error
+- if shared dimension has categories in 'x' but not in 'y'
+      - raise error
+
+y is Values
+- 
+
+
+
+|\

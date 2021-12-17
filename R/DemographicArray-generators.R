@@ -4,12 +4,13 @@
 #' @export
 setMethod("DemographicArray",
           signature(x = "array"),
-          function(x, dimtypes = NULL) {
-              demcheck::err_dimnames_complete(x = x,
-                                              name = "x")
-              demcheck::err_names_dimnames_complete(x = x,
-                                                    name = "x")
-              names <- names(dimnames(x))
+          function(x, check = NULL) {
+              demcheck::err_chk_array_metadata_complete(x = x,
+                                                        name = "x")
+              check <- demcheck::err_tdy_check(check)
+              if ("dimtypes" %in% check)
+                  
+              
               dimtypes_ans <- infer_dimtypes(names)
               if (!is.null(dimtypes)) {
                   demcheck::err_names_complete(x = dimtypes,
